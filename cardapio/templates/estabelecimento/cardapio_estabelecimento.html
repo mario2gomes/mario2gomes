@@ -1,0 +1,64 @@
+{% extends 'cardapio/base.html' %}
+
+{% block content %}
+
+
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<br>
+
+<a href="{% url 'editar_estabelecimento' pk=estabelecimento.pk %}"><button class="btn btn-info btn-lg">Altere ou visualize os dados do estabelecimento </button></a><br>
+<a href="{% url 'cardapio_cliente' pk=estabelecimento.pk %}"><button class="btn btn-warning btn-lg">Visualização do cliente</button></a><br>
+<!-- <a class="btn btn-info left" href="{% url 'calendario'%}?periodo=semana"> Semana </a> -->
+<a href="{% url 'novo_item' pk_estabelecimento=estabelecimento.pk %}"><button class="btn btn-success btn-lg">Insira mais um item no seu cardápio </button></a>
+<br>
+{% for item in itens %}
+<hr>
+{{csrf}}
+<input type="checkbox" id="{{item.id}}" onclick="checkItem('{{item.id}}')" value={{item.id}} {{ item.em_estoque|yesno:"Checked,,maybe" }}>
+<{{ item.em_estoque|yesno:"b,s,maybe" }}>
+<a href="{% url 'editar_item' pk=item.pk %}" title="{{item.descricao}}"> {{item.nome}}</a>
+</{{ item.em_estoque|yesno:"b,s,maybe" }}>
+
+<a href="{% url 'deletar_item' pk=item.pk %}" onclick="return confirm('Tem certeza que deseja deletar esse item?');">
+  <i class='fa fa-trash' data-toggle="tooltip" data-placement="bottom" style="color:#FF0000;"></i></a>
+  <br>
+  R$ {{item.preco}}
+  {{item.unidade}}{{item.medida}}
+  <br>
+    {% if item.imagem %}
+    imagem:
+    <br><img src="{{item.imagem}}" class="img-responsive" alt="..."><br>
+    {% load static %}
+    imagem:
+    <br><img src="{# {% static/img '{{item.imagem}}' %} #}" class="img-responsive" alt="..."><br>
+    {% endif %}
+    
+    {% endfor %}
+
+    <br><a href=""><button class="btn btn-danger btn-lg">INSERIR IMAGEM DE FUNDO </button></a><br>
+<script>
+  
+  function checkItem(itemId) {
+
+    var checkBox = document.getElementById(itemId);
+    if (checkBox.checked == true){
+      $.ajax({
+        type: 'POST',
+        url: "{% url 'falta_item' %}",
+        data: {"item": itemId,"em_estoque":1},
+      });
+
+    } else {
+      $.ajax({
+        type: 'POST',
+        url: "{% url 'falta_item' %}",
+        data: {"item": itemId,"em_estoque":0},
+      });
+    }
+    //setTimeout(function(){location.reload(true);}, 2);
+    setTimeout(function(){location.reload(true);}, 0);
+  }
+
+</script>
+{% endblock %}

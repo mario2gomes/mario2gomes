@@ -1,0 +1,60 @@
+<div class="tab-pane" id="pill2">
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Tipo</th>
+                    <th>Código</th>
+                    <th>Qtd</th>
+                    <th>Preço</th>
+                    <th>total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Data</th>
+                    <th>Tipo</th>
+                    <th>Código</th>
+                    <th>Qtd</th>
+                    <th>Preço</th>
+                    <th>total</th>
+                    <th></th>
+                </tr>
+            </tfoot>
+            <tbody>
+                {% load mathfilters%}
+                {% for ordem in ordens%}
+                    <tr>
+                        <td>{{ordem.data|date:'Y/m/d'}}</td>
+                        <td>{{ordem.tipo}}</td>
+                        <td><a href="{% url 'ordem_detalhe' pk=ordem.pk %}">{{ ordem.empresa.codigo }}</a></td>
+                        
+                        {% if ordem.quantidade > 0 and ordem.quantidade < 1 %}
+                            <td>{{ordem.quantidade|floatformat:4}}</td>
+                        {% else %}
+                            <td>{{ordem.quantidade|floatformat:0}}</td>
+                        {% endif %}
+
+                        {%if ordem.empresa.moeda == 'BRL' %}
+                            <td>{{ordem.preco}} {{ordem.empresa.moeda}}</td>
+                            <td>{{ordem.preco|mul:ordem.quantidade|floatformat:2}} {{ordem.empresa.moeda}}</td>
+                        {%else%}
+                            <td>{{ordem.preco}} {{ordem.empresa.moeda}}<br>
+                                {{ordem.preco|mul:valor_dolar|floatformat:2}} BRL
+                            </td>
+                            <td>{{ordem.preco|mul:ordem.quantidade|floatformat:2}} {{ordem.empresa.moeda}}<br>
+                                {{ordem.preco|mul:ordem.quantidade|mul:valor_dolar|floatformat:2}} BRL
+                            </td>
+                        {%endif%}
+                        <td>
+                            <a href="{% url 'deleta_ordem' pk=ordem.pk %}" onclick="return confirm('Tem certeza que deseja deletar a ordem de {{ordem.tipo}} da empresa {{ordem.empresa.codigo}}?');">
+                            <i class='fa fa-trash fa-2x' data-toggle="tooltip" data-placement="bottom" title="Apenas as ordens mais recentes podem ser apagadas"></i></a>
+                        </td>
+                    </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+</div>

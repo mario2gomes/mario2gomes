@@ -1,0 +1,68 @@
+<div class="tab-pane active" id="pill1">
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Código</th>
+                    <th>Qtd</th>
+                    <th>Preço Médio</th>
+                    <th>Ultima cotacao</th>
+                    <th>Lucro realizado</th>
+                    <th>Valorização</th>
+                    <th>Val/mês</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Id</th>
+                    <th>Código</th>
+                    <th>Qtd</th>
+                    <th>Preço Médio</th>
+                    <th>Ultima cotacao</th>
+                    <th>Lucro</th>
+                    <th>Valorização</th>
+                    <th>Val/mês</th>
+                </tr>
+            </tfoot>
+            <tbody>
+                {% load mathfilters%}
+                {% for ativo in ativos %}
+                    <tr>
+                        <td>{{ativo.pk}}</td>
+                        <td><a href="{% url 'ativo_detalhe' pk=ativo.pk %}">{{ativo.empresa.codigo}}</a></td>
+                        {% if ativo.quantidade > 0 and ativo.quantidade < 1 %}
+                        <td>{{ativo.quantidade|floatformat:4}}</td>
+                        {% else %}
+                        <td>{{ativo.quantidade|floatformat:0}}</td>
+                        {% endif %}
+
+                        {%if ativo.empresa.moeda == 'BRL' %}
+                        <td>{{ativo.preco}} {{'BRL'}}</td>
+                        <td>{{ativo.empresa.preco}} {{'BRL'}}</td>
+                        <td>{{ativo.lucro}} {{'BRL'}}</td>
+                        <td>{{ativo.empresa.preco|sub:ativo.preco|div:ativo.preco|mul:100|floatformat:2}} % <br>
+                            ({{ativo.empresa.moeda}} {{ativo.empresa.preco|sub:ativo.preco|mul:ativo.quantidade|floatformat:2}})</td>
+                        {%else%}
+                        <td>{{ativo.preco}} {{ativo.empresa.moeda}}<br>
+                            {{ativo.preco|mul:valor_dolar|floatformat:2}} BRL
+                        </td>
+                        <td>{{ativo.empresa.preco}} {{ativo.empresa.moeda}}<br>
+                            {{ativo.empresa.preco|mul:valor_dolar|floatformat:2}} BRL
+                        </td>
+                        <td>{{ativo.lucro}} {{ativo.empresa.moeda}}<br>
+                            {{ativo.lucro|mul:valor_dolar|floatformat:2}} BRL
+                        </td>
+                        <td>
+                            {{ativo.empresa.preco|sub:ativo.preco|div:ativo.preco|mul:100|floatformat:2}} % <br>
+                            (BRL {{ativo.empresa.preco|sub:ativo.preco|mul:ativo.quantidade|mul:valor_dolar|floatformat:2}}) <br>
+                            ({{ativo.empresa.moeda}} {{ativo.empresa.preco|sub:ativo.preco|mul:ativo.quantidade|floatformat:2}})
+                        </td>
+                        {%endif%}
+                        <td>{{ativo.lucro_diario|mul:3000|floatformat:2}} %</td>
+                    </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+  </div>

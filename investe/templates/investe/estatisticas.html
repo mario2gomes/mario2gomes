@@ -1,0 +1,244 @@
+{% extends 'investe/base.html' %}
+{% block content %}
+
+<div class="tab-pane active" id="pill4">
+
+<h3>Lucro realizado total: <strong>R$ {{lucro_totais.lucro|floatformat:2}}</strong></h3>
+<h3>Lucro não realizado total: <strong>R$ {{lucro_nao_realizado_total|floatformat:2}}</strong></h3>
+
+<h3>total investido: <strong>R$ {{total_investido|floatformat:2}}</strong></h3>
+<h3>total atual: <strong>R$ {{total_atual|floatformat:2}}</strong></h3>
+
+<h3>Valor do dolar: R$ {{valor_dolar}}</h3>
+<br>
+<br>
+<br>
+<br>
+<br>
+matplotlib
+
+{{grafico.figura}}
+<img src="{{grafico.figura.source}}"/>
+<img src="{{figure.source}}"/>
+<img src="{{grafico.figure.source}}"/>
+<img src="data:image/svg+xml;charset=UTF-8,{{ figure.source }}"/>
+<img src="data:image;{{grafico.figura.source}}"/>
+<img src="{{grafico.figura.source}}"/>
+
+<img src="data:image/svg+xml;{{grafico.source}}"/>
+<img src="data:image/svg+xml;charset=UTF-8,{{ grafico.source }}"/>
+<img src="data:image;{{grafico.figura.source}}"/>
+<img src="{{grafico.figura.source}}"/>
+
+
+chart.js
+
+  <canvas id="productsChart" width="300" height="300"></canvas>
+
+  {% block scripts %}
+    <script>
+    var ctx = document.getElementById("productsChart");
+
+    var productsChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["Macbook Pro 2017", "Go Pro 5 Hero", "Mi Band 2", "Bike Trek 5020", "Guitar Les Paul", "Xbox One", "Playstation 4", "Drone Station 3040", "Tesla Model S", "Kindle PaperWhite"],
+            datasets: [{
+                label: 'Produtos',
+                data: [3000, 5000, 1000, 2500, 3500, 2000, 4983, 1020, 40000, 100],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+    </script>
+{% endblock %}
+
+
+
+<div class="tab-pane active" id="pill4">
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid">
+                <div class="card mb-4">
+                    <div class="card-header"><i class="fas fa-chart-area mr-1"></i>Area Chart Example</div>
+                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="30"></canvas></div>
+                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card mb-4">
+                            <div class="card-header"><i class="fas fa-chart-bar mr-1"></i>Bar Chart Example</div>
+                            <div class="card-body"><canvas id="myBarChart" width="100%" height="50"></canvas></div>
+                            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card mb-4">
+                            <div class="card-header"><i class="fas fa-chart-pie mr-1"></i>Pie Chart Example</div>
+                            <div class="card-body"><canvas id="myPieChart" width="100%" height="50"></canvas></div>
+                            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+    
+
+<script>
+
+    // Set new default font family and font color to mimic Bootstrap's default styling
+Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.global.defaultFontColor = '#292b2c';
+
+// Pie Chart Example
+var ctx = document.getElementById("myPieChart");
+var myPieChart = new Chart(ctx, {
+  type: 'pie',
+  data: {
+    labels: ["Blue", "Red", "Yellow", "Green"],
+    datasets: [{
+      data: [12.21, 15.58, 11.25, 100],
+      backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745'],
+    }],
+  },
+});
+
+
+
+// Set new default font family and font color to mimic Bootstrap's default styling
+Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.global.defaultFontColor = '#292b2c';
+
+// Area Chart Example
+var ctx = document.getElementById("myAreaChart");
+var myLineChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ["Mar 1", "Mar 2", "Mar 3", "Mar 4", "Mar 5", "Mar 6", "Mar 7", "Mar 8", "Mar 9", "Mar 10", "Mar 11", "Mar 12", "Mar 13"],
+    datasets: [{
+      label: "Sessions",
+      lineTension: 0.3,
+      backgroundColor: "rgba(2,117,216,0.2)",
+      borderColor: "rgba(2,117,216,1)",
+      pointRadius: 5,
+      pointBackgroundColor: "rgba(2,117,216,1)",
+      pointBorderColor: "rgba(255,255,255,0.8)",
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: "rgba(2,117,216,1)",
+      pointHitRadius: 50,
+      pointBorderWidth: 2,
+      data: [10000, 30162, 26263, 18394, 18287, 28682, 31274, 33259, 25849, 24159, 32651, 31984, 38451],
+    }],
+  },
+  options: {
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'date'
+        },
+        gridLines: {
+          display: false
+        },
+        ticks: {
+          maxTicksLimit: 7
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          min: 0,
+          max: 40000,
+          maxTicksLimit: 5
+        },
+        gridLines: {
+          color: "rgba(0, 0, 0, .125)",
+        }
+      }],
+    },
+    legend: {
+      display: false
+    }
+  }
+});
+
+
+
+
+// Set new default font family and font color to mimic Bootstrap's default styling
+Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.global.defaultFontColor = '#292b2c';
+
+// Bar Chart Example
+var ctx = document.getElementById("myBarChart");
+var myLineChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ["January", "February", "March", "April", "May", "June"],
+    datasets: [{
+      label: "Revenue",
+      backgroundColor: "rgba(2,117,216,1)",
+      borderColor: "rgba(2,117,216,1)",
+      data: [4215, 5312, 6251, 7841, 9821, 14984],
+    }],
+  },
+  options: {
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'month'
+        },
+        gridLines: {
+          display: false
+        },
+        ticks: {
+          maxTicksLimit: 6
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          min: 0,
+          max: 15000,
+          maxTicksLimit: 5
+        },
+        gridLines: {
+          display: true
+        }
+      }],
+    },
+    legend: {
+      display: false
+    }
+  }
+});
+</script>
+
+
+</div>
+
+{% endblock %}

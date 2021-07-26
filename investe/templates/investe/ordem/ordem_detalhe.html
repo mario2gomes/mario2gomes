@@ -1,0 +1,58 @@
+{% extends 'investe/base.html' %}
+
+{% block content %}
+    {% if ordem.usuario_id == user.id %}
+    <div class="link_orcamento">
+        {% if ordem.data_ordem %}
+            <div class="date">
+                {{ ordem.data_ordem }}
+            </div>
+        {% endif %}
+        {% if user.is_authenticated %}
+            <a href="{% url 'deleta_ordem' pk=ordem.pk %}" onclick="return confirm('Tem certeza que deseja deletar a ordem de {{ordem.tipo}} da empresa {{ordem.empresa.codigo}}?');">
+                <button class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Apenas as ordens mais recentes podem ser apagadas">Deletar</button></a>
+        {% endif %}
+        {% load mathfilters%}
+        <h3> {{ ordem.empresa.codigo }}</h3>
+        <h4> {{ ordem.empresa.nome }}</h4>
+        <h4><strong> {{ ordem.tipo }}:</strong></h4>
+
+        {% if ordem.quantidade > 0 and ordem.quantidade < 1 %}
+            {{ordem.quantidade|floatformat:4}} ações<br>
+        {% else %}
+            {{ordem.quantidade|floatformat:0}} ações<br>
+        {% endif %}
+
+        {%if ordem.empresa.moeda == 'BRL' %}
+            Valor da ação: {{ordem.preco|floatformat:2}} {{ordem.empresa.moeda}}<br>
+            Valor total da ordem: {{ ordem.preco|mul:ordem.quantidade|floatformat:2}} {{ordem.empresa.moeda}}<br>
+        {%else%}
+            Valor da ação: {{ordem.preco|floatformat:2}} {{ordem.empresa.moeda}} = {{ordem.preco|mul:valor_dolar|floatformat:2}} BRL<br>
+            Valor total da ordem: {{ ordem.preco|mul:ordem.quantidade|floatformat:2}} {{ordem.empresa.moeda}} = {{ ordem.preco|mul:ordem.quantidade|mul:valor_dolar|floatformat:2}} BRL<br>
+        {%endif%}
+        Inserido em: {{ ordem.criacao}}</p>
+        Inserido por: {{ordem.usuario}}
+    </div>
+    {% else %}
+        Esta ordem só pode ser visualizada por seus proprietários
+    {% endif%}
+
+    <hr>
+
+    <a href="{% url 'nova_ordem' %}" class="menu"><button class="btn btn-success">Nova Ordem</button></a>
+{%comment%}
+    <a class="btn btn-default" href="{% url 'inserir_observacao_em_ordem' pk=ordem.pk %}">Inserir observação</a>
+
+    {% for observacao in ordem.observacoes.all %}
+        <div class="observacao">
+            <div class="date">{{ observacao.data_criacao }}</div>
+            <p>{{ observacao.texto|linebreaks }}</p>
+            <a class="btn btn-default" href="{% url 'remover_observacao' pk=observacao.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+        </div>
+    {% empty %}
+        <p>Sem comentários ainda :(</p>
+    {% endfor %}
+    -->
+{%endcomment%}
+
+{% endblock %}

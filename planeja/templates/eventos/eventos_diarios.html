@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+<b>hoje: {{hoje}}</b>
+<br>
+{% for evento in eventos %}
+
+    <tr>{# evento.inicio|time:"H"} horas#} </tr>
+    <hr>
+    {{csrf}}
+    <input type="checkbox" id="{{evento.id}}" onclick="checkEvento('{{evento.id}}')" value
+    ={{evento.id}} {{ evento.feito|yesno:"Checked,,maybe" }}>
+    
+    <{{ evento.feito|yesno:"s,b,maybe" }}>
+    {{evento.inicio}} às {{evento.fim}}:
+      <a href="{% url 'editar' id=evento.pk %}" rel='popover' title="{{evento.observacao}}"> {{evento.descricao}} {{evento.observacao|yesno:"..., ,maybe"}}</a>
+
+    </{{ evento.feito|yesno:"s,b,maybe" }}>
+      <br>
+
+      Tipo: {{evento.tipo.descricao}} prioridade: {{evento.prioridade}}
+
+      <a href="{% url 'deleta_evento' id=evento.pk %}" onclick="return confirm('Tem certeza que deseja deletar esse evento?');">
+      <i class='fa fa-trash' data-toggle="tooltip" data-placement="bottom" style="color:#FF0000;"></i></a>
+        
+{% endfor %}
+
+{% block javascript %}
+<script>
+
+  function checkEvento(eventoId) {
+
+    var checkBox = document.getElementById(eventoId);
+    if (checkBox.checked == true){
+      $.ajax({
+        type: 'POST',
+        url: "eventos/feito",
+        data: {"item": eventoId,"feito":1},
+      });
+
+    } else {
+      $.ajax({
+        type: 'POST',
+        url: "eventos/feito",
+        data: {"item": eventoId,"feito":0},
+      });
+    }
+    //setTimeout(function(){location.reload(true);}, 2);
+    setTimeout(function(){location.reload(true);}, 0);
+  }
+
+  </script>
+  {% endblock %}
+{% endblock %}

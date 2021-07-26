@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+hoje: {{hoje}}
+<br>
+<table>
+
+{% for evento in eventos %}
+    <hr>
+    <tr>{{evento.inicio|time:"H"}} horas</tr>
+    <hr>
+    {{evento.inicio}} às {{evento.fim}}:  
+        <{{ evento.feito|yesno:"s,b,maybe" }}>
+            <a href="{% url 'editar' id=evento.pk %}"> {{evento.descricao}}</a>
+        </{{ evento.feito|yesno:"s,b,maybe" }}>
+    <br>
+    Tipo: {{evento.tipo.descricao}} prioridade: {{evento.prioridade}}
+    <br>
+{% endfor %}
+</table>
+
+{% endblock %}

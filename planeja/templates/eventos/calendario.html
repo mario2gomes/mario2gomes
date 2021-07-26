@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+{# <a href="{% url 'calendario' %}?{{ prev_month }}"> Mês anterior </a><a href="{% url 'calendario' %}?{{ next_month }}"> Próximo mês </a> #}
+<div class="clearfix">
+    <a class="btn btn-info left" href="{% url 'calendario' %}?{{anterior}}&{{periodo}}"> Anterior </a>
+    <a class="btn btn-info right" href="{% url 'calendario' %}?{{proximo}}&{{periodo}}"> Próximo </a>
+</div>
+
+<b>{{data_inicial|date:"F Y"}}</b>
+<br>
+{{ calendar }}
+
+{% block javascript %}
+<script>
+
+  function checkEvento(eventoId) {
+
+    var checkBox = document.getElementById(eventoId);
+    if (checkBox.checked == true){
+      $.ajax({
+        type: 'POST',
+        url: "eventos/feito",
+        data: {"item": eventoId,"feito":1},
+      });
+
+    } else {
+      $.ajax({
+        type: 'POST',
+        url: "eventos/feito",
+        data: {"item": eventoId,"feito":0},
+      });
+    }
+    //setTimeout(function(){location.reload(true);}, 2);
+    setTimeout(function(){location.reload(true);}, 0);
+  }
+
+  </script>
+  {% endblock %}
+{% endblock %}

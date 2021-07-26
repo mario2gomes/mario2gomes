@@ -1,0 +1,25 @@
+{% extends 'estabelecimento/base.html' %}
+
+{% block content %}
+<h2><b>Área administrativa</b></h2>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<h3>Estabelecimentos: </h3>
+{% if estabelecimentos %}
+
+{% for estabelecimento in estabelecimentos %}
+
+    <tr>{# evento.inicio|time:"H"} horas#} </tr>
+    <hr>
+    <a href="{% url 'cardapio_estabelecimento' pk=estabelecimento.id %}"> {{estabelecimento.nome}}</a>
+    
+    <a href="{% url 'deletar_estabelecimento' pk=estabelecimento.id %}" onclick="return confirm('Tem certeza que deseja deletar esse item?');">
+      <i class='fa fa-trash' data-toggle="tooltip" data-placement="bottom" style="color:#FF0000;"></i></a>
+    <a href="{% url 'editar_estabelecimento' pk=estabelecimento.id %}">
+      <i class='fas fa-pencil-alt' data-toggle="tooltip" data-placement="bottom"></i></a>
+
+{% endfor %}
+{% else %}
+  <a href="{% url 'novo_estabelecimento' %}"><button class="btn btn-success btn-lg">Insira os dados do seu estabelecimento</button></a>
+{% endif %}
+
+{% endblock %}

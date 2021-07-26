@@ -1,0 +1,35 @@
+{% extends 'cardapio/base.html' %}
+
+{% block content %}
+
+<br>
+nome: {{estabelecimento.nome}}
+{% for item in itens %}
+<hr>
+<{{ item.em_estoque|yesno:"b,s,maybe" }}>
+<br>
+{{item.nome}}
+<br>
+{{item.descricao}}
+<br>
+</{{ item.em_estoque|yesno:"b,s,maybe" }}>
+
+  R$ {{item.preco}}
+  {{item.unidade}}{{item.medida}}
+  <br>
+    {% if item.imagem %}
+    imagem:
+    <br><img src="{{item.imagem}}" class="img-responsive" alt="..."><br>
+    {% load static %}
+    imagem:
+    <br><img src="{# {% static/img '{{item.imagem}}' %} #}" class="img-responsive" alt="..."><br>
+    {% endif %}
+    
+    {% endfor %}
+    <br>
+    <b>Informações sobre o {{estabelecimento.nome}}:</b><br>
+    {{estabelecimento.telefone}} <br>
+    {{estabelecimento.endereço}} <br>
+    {{estabelecimento.instagram}} <br>
+    {{estabelecimento.email}} <br>
+{% endblock %}

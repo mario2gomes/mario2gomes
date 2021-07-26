@@ -1,0 +1,34 @@
+0000000000000000000000000000000000000000 ff44cb90ff1092d6946bee9c3afeca4f9150a71e mario2gomes <mariogomesbm@gmail.com> 1585015424 -0300	commit (initial): Initial commit
+ff44cb90ff1092d6946bee9c3afeca4f9150a71e 2ca7ab259d8d1c509f34d049e126a91b49ab0bc3 mario2gomes <mariogomesbm@gmail.com> 1585016002 -0300	commit: primeiro commit
+2ca7ab259d8d1c509f34d049e126a91b49ab0bc3 153e4d40c156a953a2d4262eb2c6fc7f6df81c54 mario2gomes <mariogomesbm@gmail.com> 1585084832 -0300	commit: segundo deploy
+153e4d40c156a953a2d4262eb2c6fc7f6df81c54 8be91a9f495b48c84737cc2e1bc1db6908c5b07a mario2gomes <mariogomesbm@gmail.com> 1585168127 -0300	commit: terceiro commit
+8be91a9f495b48c84737cc2e1bc1db6908c5b07a 152d0ba8e40d217979b954b1be001c7471e6c45c mario2gomes <mariogomesbm@gmail.com> 1585184312 -0300	commit: investe funcional
+152d0ba8e40d217979b954b1be001c7471e6c45c f00766b89d9ff1a14e1b433521cbc2f5bec1096f mario2gomes <mariogomesbm@gmail.com> 1585384569 -0300	commit: quarto commit
+f00766b89d9ff1a14e1b433521cbc2f5bec1096f 644ea992facad2c1198b0a564a7c08656093eea8 mario2gomes <mariogomesbm@gmail.com> 1585387619 -0300	commit: correção de erro
+644ea992facad2c1198b0a564a7c08656093eea8 540ff7c041b5a0ba134007ae64915db6eeeea83a mario2gomes <mariogomesbm@gmail.com> 1585568650 -0300	commit: finish
+540ff7c041b5a0ba134007ae64915db6eeeea83a d190b98508bf62f54b759e0fd63e85505ac8924a mario2gomes <mariogomesbm@gmail.com> 1585947618 -0300	commit: fiter math e style
+d190b98508bf62f54b759e0fd63e85505ac8924a bf9f24769094feca3edb718f3bd8c032dfdec250 mario2gomes <mariogomesbm@gmail.com> 1585947987 -0300	commit: Update .gitignore
+bf9f24769094feca3edb718f3bd8c032dfdec250 766b46fb751703f85020cb5980e0a0915cc50fe5 mario2gomes <mariogomesbm@gmail.com> 1585948906 -0300	commit: g
+766b46fb751703f85020cb5980e0a0915cc50fe5 c9080f3904358eff071df7ca1cd1bc34033721a4 mario2gomes <mariogomesbm@gmail.com> 1586028608 -0300	commit: api rest
+c9080f3904358eff071df7ca1cd1bc34033721a4 928f00121a36375b0f0776fe666f314efc1bceec mario2gomes <mariogomesbm@gmail.com> 1586900765 -0300	commit: Antes de aplicar o bootstrap
+928f00121a36375b0f0776fe666f314efc1bceec 41af44972d7b2f2c2cfb42766031029709105c23 mario2gomes <mariogomesbm@gmail.com> 1586986810 -0300	commit: primeiro bootstrap
+41af44972d7b2f2c2cfb42766031029709105c23 084dd495e000acdfdfc80cb0dc78349fbff58b82 mario2gomes <mariogomesbm@gmail.com> 1586990474 -0300	commit: com static
+084dd495e000acdfdfc80cb0dc78349fbff58b82 f4187b084d8114e58b94033ae687546b6843dacd mario2gomes <mariogomesbm@gmail.com> 1586992065 -0300	commit: sem static
+f4187b084d8114e58b94033ae687546b6843dacd 7d9d3896825c077885c0f1d27ea385271ee95a78 mario2gomes <mariogomesbm@gmail.com> 1586992240 -0300	commit: sem static
+7d9d3896825c077885c0f1d27ea385271ee95a78 f85f36d614152c9c889ef23f6762e71b4f1aa94f mario2gomes <mariogomesbm@gmail.com> 1586992602 -0300	commit: sem static de vdd
+f85f36d614152c9c889ef23f6762e71b4f1aa94f 6538d66d15eec6e6f5f9a21c8e21adf58507cfde mario2gomes <mariogomesbm@gmail.com> 1586993143 -0300	commit: Update .gitignore
+6538d66d15eec6e6f5f9a21c8e21adf58507cfde 7a7b1302b68f319cc26d4606d24b22cd054985f2 mario2gomes <mariogomesbm@gmail.com> 1587335453 -0300	commit: concluindo a tabela de ativos
+7a7b1302b68f319cc26d4606d24b22cd054985f2 5531ca05ec8d00e446a1a91583f687ee60532014 mario2gomes <mariogomesbm@gmail.com> 1587653419 -0300	commit: tabelas completas
+5531ca05ec8d00e446a1a91583f687ee60532014 c44db12da4e68fca47a512f2ac11839baad9ac3a mario2gomes <mariogomesbm@gmail.com> 1587663605 -0300	commit: pythonanywhere zerado
+c44db12da4e68fca47a512f2ac11839baad9ac3a 00603d61848d942758fb26bec221b0bae12c9895 mario2gomes <mariogomesbm@gmail.com> 1587685167 -0300	commit: importação e exportação pelo admin
+00603d61848d942758fb26bec221b0bae12c9895 32f100d503c74359791c870b2ed5c7aa551c0099 mario2gomes <mariogomesbm@gmail.com> 1587793486 -0300	commit: operação de venda
+32f100d503c74359791c870b2ed5c7aa551c0099 315f909c146ad20c1a7b113a1fb037fa1e63e9ea mario2gomes <mariogomesbm@gmail.com> 1587846847 -0300	commit: lucro e vendas na tabela principal
+315f909c146ad20c1a7b113a1fb037fa1e63e9ea 8ba910263040c59f302d508caa41a623937c3811 mario2gomes <mariogomesbm@gmail.com> 1587999771 -0300	commit: tabelas concluidas
+8ba910263040c59f302d508caa41a623937c3811 2f1c2a8b631907685503108b5c74da30395c3df5 mario2gomes <mariogomesbm@gmail.com> 1588108167 -0300	commit: tabelas concluidas e bug na produção corrigido
+2f1c2a8b631907685503108b5c74da30395c3df5 4413258faacc2c8815b42553a2f4f2986f615553 mario2gomes <mariogomesbm@gmail.com> 1588125650 -0300	commit: bug corrigido: não era possivel deletar ordens
+4413258faacc2c8815b42553a2f4f2986f615553 706e7e08ee6bf18d7c000e936b76454cf5c8f91c mario2gomes <mariogomesbm@gmail.com> 1593053969 -0300	commit: webscrapping
+706e7e08ee6bf18d7c000e936b76454cf5c8f91c c6f47337b5e34d0b3eb9d4d3f160bb306dad0fe6 mario2gomes <mariogomesbm@gmail.com> 1593054357 -0300	pull --progress origin: Merge made by the 'recursive' strategy.
+c6f47337b5e34d0b3eb9d4d3f160bb306dad0fe6 59b6d01aff8c569cc62e6173e5788c38a45b064d mario2gomes <mariogomesbm@gmail.com> 1593737133 -0300	commit: primeiro deploy digital ocean
+59b6d01aff8c569cc62e6173e5788c38a45b064d 121ca044dd8b4ebc1d436525d0a9fd486a29442c mario2gomes <mariogomesbm@gmail.com> 1594760932 -0300	commit: lucro e preço totais
+121ca044dd8b4ebc1d436525d0a9fd486a29442c 2aad2040075a81cc5e0d3ff762e6dd960ce425ce mario2gomes <mariogomesbm@gmail.com> 1597092667 -0300	merge pc-dell: Fast-forward
+2aad2040075a81cc5e0d3ff762e6dd960ce425ce 04985c1403c78e2c659557690d6708838084a5a4 Mário Gomes da Silva Junior <mariogomesbm@gmail.com> 1627338020 -0300	commit: depois de 3 meses parado

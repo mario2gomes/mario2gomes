@@ -1,0 +1,53 @@
+{% extends 'investe/base.html' %}
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+    
+        <a href="{% url 'nova_ordem' %}" class="menu"><button class="btn btn-success btn-lg">Nova Ordem</button></a>
+
+        <a href="{% url 'estatisticas' %}" class="menu"><button class="btn btn-danger btn-lg">Estatísticas</button></a>
+    
+    {% else %}
+    <a href="{% url 'login' %}" class="top-menu"><span class="glyphicon glyphicon-lock">Login</span></a>
+    {% endif %}
+    
+    {% if ultima %}
+    <div class="alert alert-danger">
+        <div class="container">
+          <div class="alert-icon">
+            <i class="material-icons">error_outline</i>
+          </div>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true"><i class="material-icons">clear</i></span>
+          </button>
+          <b>Error Alert:</b> Damn man! You screwed up the server this time. You should find a good excuse for your Boss...
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="nav nav-pills nav-pills-danger">
+                            <li class="nav-item"><a class="nav-link active" href="#pill1" data-toggle="tab">Ativos</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#pill2" data-toggle="tab">Ordens</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#pill3" data-toggle="tab">Empresas</a></li>
+                            <!-- <li class="nav-item"><a class="nav-link" href="#pill4" data-toggle="tab">Estatísticas</a></li> -->
+                        </ul>
+                        <div class="tab-content tab-space">
+                            {% include "investe/ativo/ativo_lista.html"%}
+                            {% include "investe/ordem/ordem_lista.html"%}
+                            {% include "investe/empresa/empresa_lista.html"%}
+                            {# {% include "investe/estatisticas.html"%} #}
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

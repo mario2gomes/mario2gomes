@@ -1,0 +1,59 @@
+{% extends 'investe/base.html' %}
+
+{% block content %}
+    {% if ativo.usuario_id == user.id%}
+    <div class="link_orcamento">
+        {% load mathfilters%}
+        <h3><a href="https://br.advfn.com/bolsa-de-valores/bovespa/{{ativo.empresa.codigo}}/cotacao">{{ ativo.empresa.codigo }}</a></h3>
+        <h4> {{ ativo.empresa.nome }}</h4>
+
+        {% if ativo.quantidade > 0 and ativo.quantidade < 1 %}
+            {{ativo.quantidade|floatformat:4}} ações<br>
+        {% else %}
+            {{ativo.quantidade|floatformat:0}} ações<br>
+        {% endif %}
+
+        {%if ativo.empresa.moeda == 'BRL' %}
+            Valor da ação: {{ativo.preco|floatformat:2}} {{ativo.empresa.moeda}}<br>
+            Valor total da ativo: {{ ativo.preco|mul:ativo.quantidade|floatformat:2}} {{ativo.empresa.moeda}}<br>
+            Lucro realizado: {{ ativo.lucro}} {{ativo.empresa.moeda}}<br>
+        {%else%}
+            Valor médio por ação: {{ativo.preco|floatformat:2}} {{ativo.empresa.moeda}} = {{ativo.preco|mul:valor_dolar|floatformat:2}} BRL<br>
+            Valor total da ativo: {{ ativo.preco|mul:ativo.quantidade|floatformat:2}} {{ativo.empresa.moeda}} = {{ ativo.preco|mul:ativo.quantidade|mul:valor_dolar|floatformat:2}} BRL<br>
+            Lucro realizado: {{ ativo.lucro}} {{ativo.empresa.moeda}} = {{ ativo.lucro}} BRL<br><br>
+        {%endif%}
+        Lucro percentual realizado: {{ativo.lucro_percentual|mul:100|floatformat:2}} %<br>
+        Valorização: {{ativo.empresa.preco|sub:ativo.preco|div:ativo.preco|mul:100|floatformat:2}} % <br>
+        Lucro mensal estimado: {{ativo.lucro_diario|mul:3000|floatformat:2}}% <br>
+        Lucro anual estimado: {{ativo.lucro_diario|mul:36500|floatformat:2}}% <br>
+        Inserido por: {{ativo.usuario}}
+    </div>
+    {% else %}
+        Esta informação só pode ser visualizada por seus proprietários
+    {% endif%}
+        
+    <hr>
+
+{%comment%}
+
+    <td>{{(((ativo.empresa.preco|mul:ativo.quantidade)|sub:ativo.valor_total)|div:ativo.valor_total))|mul:100}} %</td>
+    <td>{{ativo.lucro_diario|mul:30}} %</td>
+    <td>{{ativo.lucro_diario|mul:365}} %</td>
+
+    <td>{{total ativo.preco}}</>
+    <td></td>
+    <td></td>
+    <td>{{total ativo.lucro}}</td>
+    <td>{{total ativo.lucro_percentual (preco_total/lucro_total)}}</td>
+    <td></td>
+    <td>{{total lucro_mensal _estimado (preco/lucro)}}</td>
+    <td>{{total lucro_anual _estimado (preco/lucro)}}</td>
+
+    {% with cotacao_atual=ordem.cotacao_atual %}
+    <td>{{cotacao_atual.preco}}, <br>em: {{cotacao_atual.dia}} {{ativo.empresa.moeda}}</td>
+    <td>{{cotacao_atual.preco|mul:ordem.quantidade}}</td>
+    <td>{{cotacao_atual}}</td>
+    {% endwith %}
+{%endcomment%} 
+
+{% endblock %}

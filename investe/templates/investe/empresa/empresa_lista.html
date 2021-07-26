@@ -1,0 +1,39 @@
+<div class="tab-pane" id="pill3">
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>CÃ³digo</th>
+                    <th>Nome</th>
+                    <th>Ãltima cotacao</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Id</th>
+                    <th>CÃ³digo</th>
+                    <th>Nome</th>
+                    <th>Última cotacao</th>
+                </tr>
+            </tfoot>
+            <tbody>
+                {% load mathfilters%}
+                {% for empresa in empresas %}
+                    <tr>
+                        <td>{{empresa.pk}}</td>
+                        <td><a href="https://br.advfn.com/bolsa-de-valores/bovespa/{{empresa.codigo}}/cotacao">{{ empresa.codigo }}</a></td>
+                        <td>{{empresa.nome}}</td>
+                        {%if empresa.moeda == 'BRL' %}
+                            <td>{{empresa.preco}} {{empresa.moeda}}</td>
+                        {%else%}
+                            <td>{{empresa.preco}} {{empresa.moeda}}<br>
+                                {{empresa.preco|mul:valor_dolar|floatformat:2}} BRL
+                            </td>
+                        {%endif%}
+                    </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+  </div>

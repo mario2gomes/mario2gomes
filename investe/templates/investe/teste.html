@@ -1,0 +1,14 @@
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>TESTES>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<br>
+
+{% for empresa in empresas %}
+    <br>
+    {{empresa.cotacao_atual}}    
+    {% for cota,codigo in empresa.cotacao_atual.values %}
+    <br>
+        {{ cota }}
+        {{codigo}}
+    {% endfor %}
+{% endfor %}
