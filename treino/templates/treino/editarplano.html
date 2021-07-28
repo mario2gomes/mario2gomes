@@ -1,0 +1,13 @@
+{% extends 'base_treino.html' %}
+
+{% block content %}
+
+<form method="post">
+  {% csrf_token %}
+  <table class="form form-table">
+    {{ form }}
+    <tr><td colspan="2"><button type="submit" class="btn btn-info right"> Ok </button><a class="btn btn-success" href="{% url 'novoplano' %}"> Novo Treino </a></td></tr>
+  </table>
+  
+</form>
+{% endblock %}

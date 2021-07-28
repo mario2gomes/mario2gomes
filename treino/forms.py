@@ -16,7 +16,7 @@ class TreinoForm(ModelForm):
 class Treino_exercicioForm(ModelForm):
   class Meta:
     model = Treino_exercicio
-    fields = ('treino', 'exercicio', 'carga', 'repeticoes', 'medida')
+    fields = ('treino', 'exercicio', 'carga', 'repeticoes')
 
 class ExercicioForm(ModelForm):
   class Meta:

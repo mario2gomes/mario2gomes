@@ -13,7 +13,7 @@ import json
 import numpy as np
 #from .apps import cotacao_dolar
 #from . import apps
-#o ponto antes de models se refere ao app/pasta atual (nÃ£o precisa usar o .py)
+#o ponto antes de models se refere ao app/pasta atual (não precisa usar o .py)
 
 def cadastrar_usuario(request):
     if request.method == "POST":
@@ -25,8 +25,7 @@ def cadastrar_usuario(request):
         form_usuario = UserCreationForm()
     return render(request, 'investe/usuario/cadastrar_usuario.html', {'form_usuario': form_usuario})
 
-def atualiza_preco(request):
-    
+def atualiza_preco(request):   
     empresas = Empresa.objects.all()
 
     for empresa in empresas:
@@ -38,7 +37,7 @@ def atualiza_preco(request):
         Empresa.objects.filter(pk=empresa.pk).update(data_preco=date.today())
     valor_dolar = Empresa.cotacao_dolar()
     if float(valor_dolar) < 5 or float(valor_dolar)>5.5:
-            return redirect('https://api.telegram.org/bot1454648470:AAFqV5megHg623GkVNSdOIdwGmWAupy32rY/sendMessage?chat_id=915928341&text=PreÃ§o do dolar hoje: R$ '+str(valor_dolar))
+        return redirect('https://api.telegram.org/bot1454648470:AAFqV5megHg623GkVNSdOIdwGmWAupy32rY/sendMessage?chat_id=915928341&text=Preço do dolar hoje: R$ '+str(valor_dolar))
     return render(request,'investe/atualiza_preco.html', {'valor_dolar': valor_dolar})  
 
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ORDEM<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -56,7 +55,21 @@ def index(request):
     valor_dolar = Empresa.cotacao_dolar()
     #lucro_nao_realizado_total, lucro_nao_realizado = Empresa.lucro_nao_realizado_total(usuario_logado)
     #totais = Ativo.objects.filter(usuario=usuario_logado).aggregate(lucro = Sum('lucro'),preco = Sum('preco'))
-    return render(request, 'investe/index.html',{'ordens':ordens,'ativos':ativos,'empresas':empresas, 'valor_dolar':valor_dolar})#, 'totais':totais, 'lucro_nao_realizado':lucro_nao_realizado, 'lucro_nao_realizado_total':lucro_nao_realizado_total, 'grafico':grafico})
+    
+    #informações para o modal de nova ordem
+    #user = request.user
+    consulta_empresas = Empresa.objects.all().values_list('codigo', flat=True)#tirar o flat pra receber uma tupla
+    todas_empresas = json.dumps(list(consulta_empresas))
+    form = OrdemForm(user=request.user)
+    return render(
+        request, 'investe/index.html',{
+            'ordens':ordens,
+            'ativos':ativos,
+            'empresas':empresas,
+            'valor_dolar':valor_dolar,
+            'form':form,
+            'todas_empresas':todas_empresas
+            })#, 'totais':totais, 'lucro_nao_realizado':lucro_nao_realizado, 'lucro_nao_realizado_total':lucro_nao_realizado_total, 'grafico':grafico})
 
 @login_required
 def estatisticas(request):
@@ -101,9 +114,6 @@ def ordem_detalhe(request, pk):
 @login_required
 def nova_ordem(request):
     user = request.user
-    consulta_empresas = Empresa.objects.all().values_list('codigo', flat=True)#tirar o flat pra receber uma tupla
-    empresas = json.dumps(list(consulta_empresas))
-
     if request.method == "POST":
         form = OrdemForm(request.POST,user=request.user)
         if form.is_valid():
@@ -128,13 +138,13 @@ def nova_ordem(request):
             return redirect('ordem_detalhe', pk=ordem.pk)
     else:
         form = OrdemForm(user=request.user)
-    return render(request, 'investe/ordem/edita_ordem.html',{'form':form,'empresas':empresas})
+    return render(request, 'investe/ordem/nova_ordem.html',{'form':form})
 
 @login_required
 def deleta_ordem(request, pk):
     #obtem ordem do banco pela pk
     ordem = get_object_or_404(Ordem, pk=pk)
-    #Apenas a Ãºltima ordem (da empresa) pode ser deletada (para facilitar o cÃ¡lculo do lucro)
+    #Apenas a última ordem (da empresa) pode ser deletada (para facilitar o cálculo do lucro)
     if ordem == Ordem.objects.filter(empresa=ordem.empresa, usuario=request.user).last():
         ativo = Ativo.objects.get(empresa=ordem.empresa, usuario=request.user)
         if ordem.tipo=='compra':
@@ -155,7 +165,7 @@ def deleta_ordem(request, pk):
             ativo.delete()
         request.session['alerta'] = 'sem-erro'
     else:
-        #deve enviar um alerta informando que apenas a Ãºltima ordem pode ser deletada
+        #deve enviar um alerta informando que apenas a última ordem pode ser deletada
         return redirect('index')
     
     return redirect('index')

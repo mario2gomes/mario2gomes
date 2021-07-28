@@ -6,7 +6,7 @@ from . import views
 #from django.contrib import admin
 
 urlpatterns = [
-    path('index', views.Index, name='index'),
+    path('index', views.Index, name='index_cardapio'),
     path('cliente/<pk>', views.CardapioCliente, name='cardapio_cliente'),
     path('', views.Estabelecimentos, name='estabelecimentos'),
     path('estabelecimento/cardapio/<pk>', views.CardapioEstabelecimento, name='cardapio_estabelecimento'),

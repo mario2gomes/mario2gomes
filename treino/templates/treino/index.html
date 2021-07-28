@@ -1,0 +1,16 @@
+{% extends 'base_treino.html' %}
+
+{% block content %}
+
+<h1>Treinos de {{usuario}}</h1>
+<br><br>
+
+{% for plano in planos%}
+<a class="btn btn-info center" href="{% url 'editarplano' pk=plano.id %}" rel='popover' title="{{plano.descricao}}"> {{plano.id}}{{plano.nome}} </a>
+<h5>De {{plano.inicio}} a {{plano.fim}}</h5>
+{% endfor %}
+<a class="btn btn-info center" href="{% url 'novoplano' %}"> Novo plano </a>
+
+<br><br>resto de codigo: <input type="tel" id="phone" name="phone" placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"><br><br>
+
+{% endblock %}

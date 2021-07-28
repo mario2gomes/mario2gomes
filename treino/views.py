@@ -13,24 +13,104 @@
     #o ponto antes de models se refere ao app/pasta atual (não precisa usar o .py)
 '''
 
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, redirect, render
 from .models import *
 from .forms import *
 from django.contrib.auth.decorators import  login_required
 from datetime import date,datetime
 
 @login_required
-def index(request):
+def Index(request):
     hoje = date.today()
-    plano = Plano.objects.filter(inicio<=hoje, fim >=hoje, usuario=request.user).order_by('-data')
-    ativos = Ativo.objects.all().filter(usuario=usuario_logado).order_by('empresa')
-    #grafico = Grafico.objects.filter(pk=1)
-    empresas = []
-    for ativo in ativos:
-        empresa = get_object_or_404(Empresa, pk=ativo.empresa.pk)
-        empresas.append(empresa)
+    planos = Plano.objects.filter(
+        inicio__lte=hoje,
+        fim__gte=hoje, 
+        usuario=request.user
+        ) 
+    #Entry.objects.filter(pub_date__range=(start_date, end_date))
+    return render(request, 'treino/index.html',{
+        'planos':planos,'usuario':request.user})
 
-    #lucro_nao_realizado_total, lucro_nao_realizado = Empresa.lucro_nao_realizado_total(usuario_logado)
+#================PLANO====================    
 
-    #totais = Ativo.objects.filter(usuario=usuario_logado).aggregate(lucro = Sum('lucro'),preco = Sum('preco'))
-    return render(request, 'investe/index.html',{'ordens':ordens,'ativos':ativos,'empresas':empresas})#, 'totais':totais, 'lucro_nao_realizado':lucro_nao_realizado, 'lucro_nao_realizado_total':lucro_nao_realizado_total, 'grafico':grafico})
+@login_required
+def EditarPlano(request, pk=None):
+    instancia = Plano()
+    if pk:
+        instancia = get_object_or_404(Plano, id=pk)
+    else:
+        instancia = Plano()
+        instancia.usuario = request.user
+    
+    form = PlanoForm(
+        request.POST or None, instance=instancia
+        )
+    #form.fields['treino'].queryset=Treino.objects.filter(usuario=request.user)
+    if request.POST and form.is_valid():
+        form.save()
+        #data = instancia.data.strftime('%Y-%m-%d');
+        return redirect('index')
+    return render(request, 'treino/editarplano.html', {'form': form})
+    
+'''    
+def nova_ordem(request):
+    user = request.user
+    consulta_empresas = Empresa.objects.all().values_list('codigo', flat=True)#tirar o flat pra receber uma tupla
+    empresas = json.dumps(list(consulta_empresas))
+
+    if request.method == "POST":
+        form = OrdemForm(request.POST,user=request.user)
+        if form.is_valid():
+            ordem = form.save(commit=False)
+            empresa = get_object_or_404(Empresa, codigo=request.POST['empresa'].upper())
+            ordem.empresa = empresa
+            ordem.usuario = user
+            ativo,criado = Ativo.objects.update_or_create(
+                empresa=empresa, usuario = user)
+            if ordem.tipo=='compra':
+                ativo.quantidade = ativo.quantidade + ordem.quantidade
+            else:
+                ativo.quantidade = quantidade_antiga - ordem.quantidade
+            ativo.save()
+            ordem.save()
+            return redirect('ordem_detalhe', pk=ordem.pk)
+    else:
+        form = OrdemForm(user=request.user)
+    return render(request, 'investe/ordem/edita_ordem.html',{'form':form,'empresas':empresas})
+
+
+
+@login_required
+def novo_tipo(request, id=None):
+    instancia = Tipo()
+    if id:
+        instancia = get_object_or_404(Tipo, pk=id)
+    else:
+        instancia = Tipo()
+        instancia.usuario = request.user
+    
+    form = TipoForm(request.POST or None, instance=instancia)
+    if request.POST and form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('novo_evento'))
+    return render(request, 'eventos/novo_tipo.html', {'form': form})
+
+@login_required
+def deleta_plano(request, pk):
+    ordem = get_object_or_404(Ordem, pk=pk)
+    ordem.delete()
+    return redirect('index')
+
+@login_required
+def edita_plano(request, pk):
+     ordem = get_object_or_404(Ordem, pk=pk)
+     if request.method == "POST":
+         form = OrdemForm(request.POST, instance=ordem)
+         if form.is_valid():
+             ordem = form.save(commit=False)
+             ordem.save()
+             return redirect('ordem_detalhe', pk=ordem.pk)
+     else:
+         form = OrdemForm(instance=ordem)
+     return render(request, 'investe/ordem/edita_ordem.html', {'form': form})
+     '''

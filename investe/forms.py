@@ -43,11 +43,12 @@ class OrdemForm(forms.ModelForm):
                 raise forms.ValidationError("A moeda informada não coincide com a moeda do seu ativo")
                 
         preco = empresa.cotacao_atual()
-
         pagina = requests.get('https://br.advfn.com/bolsa-de-valores/bovespa/'+campo_empresa+'/cotacao')
         if pagina.status_code==200:
             if preco == 0:
                 raise forms.ValidationError("Empresa sem valor estimado.")
+            elif isinstance(preco,str):
+                raise forms.ValidationError("O código "+campo_empresa+" não existe na base de dados de ações")
             else:
                 soup = BeautifulSoup(pagina.text, 'html.parser')
                 tabelas = soup.find_all('div', class_ = "TableElement")

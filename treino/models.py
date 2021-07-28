@@ -17,13 +17,14 @@ class Plano(models.Model):
         verbose_name_plural = _("planos")
 
     def __str__(self):
-        return self.name
+        return self.nome
 
     def get_absolute_url(self):
         return reverse("plano_detail", kwargs={"pk": self.pk})
 
 
 class Treino(models.Model):
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
     nome = models.CharField(max_length=100)
     descricao = models.CharField(max_length=100)
     plano = models.ForeignKey("Plano", on_delete=models.DO_NOTHING)
